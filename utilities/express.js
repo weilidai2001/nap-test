@@ -19,11 +19,20 @@ var appConfiguration = {
         app.use(express.static(config.ROOT + '/public'));
     },
 
+    enableCORS: function(app) {
+        app.use(function(req, res, next) {
+          res.header("Access-Control-Allow-Origin", "*");
+          res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+          next();
+        }); 
+    },
 
     init: function() {
         var app = express();
 
         appConfiguration.templateConfig(app);
+
+        appConfiguration.enableCORS(app);
 
         return app;
     }

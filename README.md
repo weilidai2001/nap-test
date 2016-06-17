@@ -29,7 +29,7 @@ This is a chance for you to show us how you think we should display our products
 The following are examples of the existing mobile and desktop listing pages:
 
 * [Mobile](public/images/mobile.jpg)
-* [Desktop](public/images/mobile.jpg)
+* [Desktop](public/images/desktop.jpg)
 
 You can replicate these or if you think there is something we should be doing, or it should work another way - feel free to be creative but tell us why and what you think we are doing wrong.
 
