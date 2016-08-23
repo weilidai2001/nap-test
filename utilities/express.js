@@ -14,7 +14,7 @@ var appConfiguration = {
           layoutsDir: config.ROOT + '/views/layouts'
         }));
         app.set('view engine', 'hbs');
-        app.set('views', config.ROOT + '/views');        
+        app.set('views', config.ROOT + '/views');
 
         app.use(express.static(config.ROOT + '/public'));
     },
@@ -24,7 +24,7 @@ var appConfiguration = {
           res.header("Access-Control-Allow-Origin", "*");
           res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
           next();
-        }); 
+        });
     },
 
     init: function() {

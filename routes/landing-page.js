@@ -1,4 +1,3 @@
-var config = require('../config/config')
 var request = require('request');
 
 var routes = {
@@ -6,7 +5,7 @@ var routes = {
 
         // set up landing page
         app.get('/', function (req, res, next) {
-            
+
             request('http://127.0.0.1:3000/api/products', function(error, response, body) {
                 res.render('index', {
                     metadata: {

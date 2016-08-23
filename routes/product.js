@@ -4,13 +4,12 @@ var _ = require('lodash');
 // Mock API using fixture so we're not dependent on network connectivity
 var allProducts = require(config.ROOT +'/fixtures/products.json').data;
 
-
 var routes = {
     init: function(app) {
 
         // get product specific details
         app.get('/api/product/:id', function (req, res, next) {
-            
+
             var requestedId = Number(req.params.id);
             var productObj = _.find(allProducts, {'id': requestedId });
 
