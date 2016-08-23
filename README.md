@@ -12,8 +12,8 @@ This is a chance for you to show us how you think we should display our products
 ### Product details
     http://127.0.0.1:3000/api/product/$id  
 
-### You might want to include 
- 
+### You might want to include
+
 * Implement pagination/infinite scroll
 * Filters and sorts (eg. lowest price first, select a size)
 * A mix of server and clientside rendering
@@ -22,9 +22,9 @@ This is a chance for you to show us how you think we should display our products
 
 ### Things to note
 
-* Aesthetics are very important to the Net-a-porter brand but so is performance
-* Don't worry about header/footer
-* Use any library/framework you deem applicable
+* We want to see your understanding of JavaScript (including ES6 and ES7) so please stick to VanillaJS.
+* Aesthetics are very important to the Net-a-porter brand but so is performance.
+* Don't worry about header/footer.
 
 The following are examples of the existing mobile and desktop listing pages:
 
@@ -40,14 +40,14 @@ To run the app:
 
 ```shell
 $ npm install
-$ node app
+$ npm start
 ```
 
 # Apis
 
 ## Products
 
-Returns a list of products. 
+Returns a list of products.
 
 Example:
 
