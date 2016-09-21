@@ -2,19 +2,18 @@
 <div class="products">
     <div class="products-heading">WHAT'S NEW ({{ products.data.length }} ITEMS)</div>
     <div class="products-controls-contrainer">
-      <select>
+      <select class="products-orderby-selector">
         <option value="default">Sort by</option>
         <option value="price_asc">Price ascending</option>
         <option value="price_desc">Price descending</option>
         <option value="designer">Designer</option>
-        <option value="name">Name</option>
       </select>
 
 
       <div class="products-filters-container-designer">
         <div>Filter by designer</div>
         {{#each designers }}
-        <input type="checkbox">&nbsp;{{ this }}<br/>
+        <input type="checkbox" class="products-filter-designer-checkbox" value="{{ this }}">&nbsp;{{ this }}<br/>
         {{/each}}
       </div>
     </div>
@@ -30,3 +29,67 @@
         {{/each}}
     </div>
 </div>
+<script>
+  // Helper functioin
+  function updateQueryStringParameter(uri, key, value) {
+    var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+    var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+    if (uri.match(re)) {
+      return uri.replace(re, '$1' + key + "=" + value + '$2');
+    }
+    else {
+      return uri + separator + key + "=" + value;
+    }
+  }
+
+  function insertQueryStringParameter(uri, key, value)
+  {
+    var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+
+    return uri + separator + key + "=" + value;
+  }
+
+  function removeQueryStringParameter(url, parameter) {
+    var urlparts= url.split('?');
+
+    if (urlparts.length>=2)
+    {
+      var urlBase=urlparts.shift(); //get first part, and remove from array
+      var queryString=urlparts.join("?"); //join it back up
+
+      var prefix = encodeURIComponent(parameter)+'=';
+      var pars = queryString.split(/[&;]/g);
+      for (var i= pars.length; i-->0;)               //reverse iteration as may be destructive
+        if (pars[i].lastIndexOf(prefix, 0)!==-1)   //idiom for string.startsWith
+          pars.splice(i, 1);
+      url = urlBase+'?'+pars.join('&');
+    }
+    return url;
+  }
+
+  function isQueryStringExists(queryString){
+    return window.location.href.search("[?&]designer=" + queryString) != -1;
+  }
+
+  $('.products-filter-designer-checkbox').each(function(){
+    if(isQueryStringExists(encodeURIComponent($(this)[0].value))){
+      $(this)[0].checked = true;
+    }
+  });
+
+  $('.products-orderby-selector').change(function(e){
+    var currentUrl = window.location.href;
+    var newLocation = updateQueryStringParameter(currentUrl, 'sortBy', e.target.value);
+    window.location.href = newLocation;
+  });
+
+  $('.products-filter-designer-checkbox').change(function(e){
+    var currentUrl = window.location.href;
+    if (isQueryStringExists(encodeURIComponent($(this)[0].value))){
+      window.location.href = removeQueryStringParameter(currentUrl, 'designer', e.target.value);
+    } else {
+      window.location.href = insertQueryStringParameter(currentUrl, 'designer', e.target.value);
+    }
+  });
+
+</script>
