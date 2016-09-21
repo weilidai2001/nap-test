@@ -1,5 +1,11 @@
 var request = require('request');
 
+var uniqEs6 = (arrArg) => {
+    return arrArg.filter((elem, pos, arr) => {
+        return arr.indexOf(elem) == pos;
+    });
+};
+
 var routes = {
     init: function(app) {
 
@@ -7,14 +13,17 @@ var routes = {
         app.get('/', function (req, res, next) {
 
             request('http://127.0.0.1:3000/api/products', function(error, response, body) {
+                const products = JSON.parse(body).data;
+
                 res.render('index', {
                     metadata: {
-                        title: 'NAP Tech Test'
+                        title: 'Products'
                     },
-                    title: 'NAP Tech Test',
+                    title: 'Products',
                     layout: 'layouts/default',
                     template: 'index',
-                    products: body
+                    designers: uniqEs6(products.map(item => item.designer)),
+                    products: products
                 });
             });
         });

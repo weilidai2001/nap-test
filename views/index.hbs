@@ -1,21 +1,31 @@
 {{!< default}}
-<div class="container">
-	<h1>NAP TECH TEST</h1>
-	<p>Create a categloue expirence using two sample product APIs.</p>
-	<h2>Product lists</h2>
-	<code>http://127.0.0.1:3000/api/products</code>
-	<h2>Product details</h2>
-	<code>http://127.0.0.1:3000/api/product/$id</code>
-	<h2>Preview of existing expiences<h2>
-	<table style="width:100%">
-		<tr>
-			<td>Desktop</td>
-			<td>Mobile</td>
+<div class="products">
+    <div class="products-heading">WHAT'S NEW ({{ products.data.length }} ITEMS)</div>
+    <div class="products-controls-contrainer">
+      <select>
+        <option value="default">Sort by</option>
+        <option value="price_asc">Price ascending</option>
+        <option value="price_desc">Price descending</option>
+        <option value="designer">Designer</option>
+        <option value="name">Name</option>
+      </select>
 
-		</tr>
-		<tr>
-			<td><img src="/images/desktop.jpg" /></td>
-			<td><img src="/images/mobile.jpg" /></td>
-		</tr>
-	</table>
+
+      <div class="products-filters-container-designer">
+        <div>Filter by designer</div>
+        {{#each designers }}
+        <input type="checkbox" >{{ this }}<br/>
+        {{/each}}
+      </div>
+    </div>
+    <div class="products-items-container">
+    	{{#each products.data }}
+            <div class="products-item">
+                <img src="{{this.image.outfit}}"/>
+                <div class="products-item-designer">{{this.designer}}</div>
+                <div class="products-item-name">{{this.name}}</div>
+                <div class="products-item-price">{{this.price}}</div>
+            </div>
+        {{/each}}
+    </div>
 </div>
