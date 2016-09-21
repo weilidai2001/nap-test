@@ -1,0 +1,24 @@
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 50px auto;
+    width: 90%;
+}
+
+.products-heading {
+    width: 100%;
+}
+
+.products-filters-container-designer {
+    width: 200px;
+}
+
+.products-items-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: calc(100% - 200px);
+}
+
+.products-item {
+    width: 33%;
+}
