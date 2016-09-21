@@ -12,7 +12,7 @@ var routes = {
         // set up landing page
         app.get('/', function (req, res, next) {
 
-            request('http://127.0.0.1:3000/api/products', function(error, response, body) {
+            request({url: 'http://127.0.0.1:3000/api/products', qs: req.query || {}}, function(error, response, body) {
                 const products = JSON.parse(body).data;
 
                 res.render('index', {
