@@ -19,6 +19,10 @@ const filterBy = (method, list) => {
     return list;
 };
 
+const filterByDesigners = (designers, list) => {
+    return list.filter(item => designers.indexOf(item.brand.name.en) != -1);
+};
+
 var routes = {
     init: function(app) {
 
@@ -30,14 +34,17 @@ var routes = {
                 return res.type('json').sendStatus(400);
             }
             var sortMethod = req.query.sortBy;
+            var designers = req.query.designer || [];
 
             const sorted = filterBy(sortMethod, allProducts);
+            const filtered = designers.length ? filterByDesigners(designers, sorted) : sorted;
 
             res.json({
                 offset: offset,
                 limit: limit,
                 total: total,
-                data: sorted.slice(offset, offset+limit).map(function(product) {
+                designers: _.uniq(allProducts.map(item => item.brand.name.en)),
+                data: filtered.slice(offset, offset+limit).map(function(product) {
                     // Simplify payload - more data available in fixture
                     return {
                         id: product.id,

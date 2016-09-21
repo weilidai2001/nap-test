@@ -1,10 +1,6 @@
 var request = require('request');
 
-var uniqEs6 = (arrArg) => {
-    return arrArg.filter((elem, pos, arr) => {
-        return arr.indexOf(elem) == pos;
-    });
-};
+
 
 var routes = {
     init: function(app) {
@@ -13,7 +9,9 @@ var routes = {
         app.get('/', function (req, res, next) {
 
             request({url: 'http://127.0.0.1:3000/api/products', qs: req.query || {}}, function(error, response, body) {
-                const products = JSON.parse(body).data;
+                const parsed = JSON.parse(body);
+                const products = parsed.data;
+                const designers = parsed.designers;
 
                 res.render('index', {
                     metadata: {
@@ -22,7 +20,7 @@ var routes = {
                     title: 'Products',
                     layout: 'layouts/default',
                     template: 'index',
-                    designers: uniqEs6(products.map(item => item.designer)),
+                    designers: designers,
                     products: products
                 });
             });
